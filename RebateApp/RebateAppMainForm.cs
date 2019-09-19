@@ -93,10 +93,10 @@ namespace RebateApp
             txtCity.Text = rebateInfo.City;
             txtState.Text = rebateInfo.State;
             txtZipCode.Text = rebateInfo.Zip;
-            cboGender.SelectedItem = cboGender.FindStringExact(rebateInfo.Gender);
+            cboGender.SelectedIndex = cboGender.FindStringExact(rebateInfo.Gender);
             masktxtPhoneNum.Text = rebateInfo.PhoneNum;
             txtEmail.Text = rebateInfo.Email;
-            cboProofPurchase.SelectedItem = cboProofPurchase.FindStringExact(rebateInfo.ProofPurchase);
+            cboProofPurchase.SelectedIndex = cboProofPurchase.FindStringExact(rebateInfo.ProofPurchase);
             datetimepickerDateReceived.Value = DateTime.ParseExact(rebateInfo.DateRecieved, "M/dd/yyyy", CultureInfo.InvariantCulture);
         }
 
@@ -109,6 +109,103 @@ namespace RebateApp
                 if (listViewRebateRecords.SelectedItems.Count == 0)
                     listViewRebateRecords.FocusedItem.Selected = true;
             }
+        }
+
+        private Boolean CheckFields()
+        {
+            Boolean fieldsFlag = false;
+            Boolean uniqueFlag = false;
+
+            return fieldsFlag;
+        }
+
+        private Boolean CheckTxtFieldNonEmpty(TextBox txtBox)
+        {
+            if (txtBox.TextLength > 0)
+            {
+                txtBox.BackColor = Color.White;
+                return true;
+            }
+            else
+            {
+                txtBox.BackColor = Color.PaleVioletRed;
+                return false;
+            }
+        }
+
+        private Boolean CheckStateField(TextBox txtBox)
+        {
+            if(txtBox.TextLength == 2 && txtBox.Text.All(Char.IsLetter))
+            {
+                txtBox.BackColor = Color.White;
+                return true;
+            }
+            else
+            {
+                txtBox.BackColor = Color.PaleVioletRed;
+                return false;
+            }
+        }
+
+        private Boolean CheckZipField(TextBox txtBox)
+        {
+            if( (txtBox.TextLength == 5 || txtBox.TextLength == 9) && txtBox.Text.All(Char.IsDigit) )
+            {
+                txtBox.BackColor = Color.White;
+                return true;
+            }
+            else
+            {
+                txtBox.BackColor = Color.PaleVioletRed;
+                return false;
+            }
+        }
+
+        private Boolean CheckCboField(ComboBox cboBox)
+        {
+            if(cboBox.SelectedIndex > -1)
+            {
+                cboBox.BackColor = Color.White;
+                return true;
+            }
+            else
+            {
+                cboBox.BackColor = Color.PaleVioletRed;
+                return false;
+            }
+        }
+
+        private Boolean CheckMaskTxtField(MaskedTextBox maskTxtBox)
+        {
+            if(maskTxtBox.MaskCompleted)
+            {
+                maskTxtBox.BackColor = Color.White;
+                return true;
+            }
+            else
+            {
+                maskTxtBox.BackColor = Color.PaleVioletRed;
+                return false;
+            }
+        }
+
+        private Boolean CheckEmailField(TextBox txtBox)
+        {
+            if(txtBox.TextLength > 0 && txtBox.Text.Contains("@"))
+            {
+                txtBox.BackColor = Color.White;
+                return true;
+            }
+            else
+            {
+                txtBox.BackColor = Color.PaleVioletRed;
+                return false;
+            }
+        }
+
+        private void FieldControl_Leave(object sender, EventArgs e)
+        {
+            
         }
     }
 }

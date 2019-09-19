@@ -74,14 +74,17 @@
             // txtFirstName
             // 
             this.txtFirstName.Location = new System.Drawing.Point(110, 10);
+            this.txtFirstName.MaxLength = 20;
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(125, 20);
             this.txtFirstName.TabIndex = 1;
             this.txtFirstName.Text = "nnnnnnnnnnnnnnnnnnnn";
+            this.txtFirstName.Leave += new System.EventHandler(this.FieldControl_Leave);
             // 
             // txtMiddleInitial
             // 
             this.txtMiddleInitial.Location = new System.Drawing.Point(110, 36);
+            this.txtMiddleInitial.MaxLength = 1;
             this.txtMiddleInitial.Name = "txtMiddleInitial";
             this.txtMiddleInitial.Size = new System.Drawing.Size(20, 20);
             this.txtMiddleInitial.TabIndex = 3;
@@ -99,9 +102,11 @@
             // txtLastName
             // 
             this.txtLastName.Location = new System.Drawing.Point(110, 62);
+            this.txtLastName.MaxLength = 20;
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(125, 20);
             this.txtLastName.TabIndex = 5;
+            this.txtLastName.Leave += new System.EventHandler(this.FieldControl_Leave);
             // 
             // lblLastName
             // 
@@ -115,10 +120,12 @@
             // txtAddrLine1
             // 
             this.txtAddrLine1.Location = new System.Drawing.Point(110, 88);
+            this.txtAddrLine1.MaxLength = 35;
             this.txtAddrLine1.Name = "txtAddrLine1";
             this.txtAddrLine1.Size = new System.Drawing.Size(215, 20);
             this.txtAddrLine1.TabIndex = 7;
             this.txtAddrLine1.Text = "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn";
+            this.txtAddrLine1.Leave += new System.EventHandler(this.FieldControl_Leave);
             // 
             // lblAddrLine1
             // 
@@ -132,10 +139,12 @@
             // txtAddrLine2
             // 
             this.txtAddrLine2.Location = new System.Drawing.Point(110, 114);
+            this.txtAddrLine2.MaxLength = 35;
             this.txtAddrLine2.Name = "txtAddrLine2";
             this.txtAddrLine2.Size = new System.Drawing.Size(215, 20);
             this.txtAddrLine2.TabIndex = 9;
             this.txtAddrLine2.Text = "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn";
+            this.txtAddrLine2.Leave += new System.EventHandler(this.FieldControl_Leave);
             // 
             // lblAddrLine2
             // 
@@ -149,10 +158,12 @@
             // txtCity
             // 
             this.txtCity.Location = new System.Drawing.Point(110, 140);
+            this.txtCity.MaxLength = 25;
             this.txtCity.Name = "txtCity";
             this.txtCity.Size = new System.Drawing.Size(155, 20);
             this.txtCity.TabIndex = 11;
             this.txtCity.Text = "nnnnnnnnnnnnnnnnnnnnnnnnn";
+            this.txtCity.Leave += new System.EventHandler(this.FieldControl_Leave);
             // 
             // lblCity
             // 
@@ -166,10 +177,12 @@
             // txtState
             // 
             this.txtState.Location = new System.Drawing.Point(110, 166);
+            this.txtState.MaxLength = 2;
             this.txtState.Name = "txtState";
             this.txtState.Size = new System.Drawing.Size(30, 20);
             this.txtState.TabIndex = 13;
             this.txtState.Text = "WW";
+            this.txtState.Leave += new System.EventHandler(this.FieldControl_Leave);
             // 
             // lblState
             // 
@@ -183,10 +196,12 @@
             // txtZipCode
             // 
             this.txtZipCode.Location = new System.Drawing.Point(110, 192);
+            this.txtZipCode.MaxLength = 9;
             this.txtZipCode.Name = "txtZipCode";
             this.txtZipCode.Size = new System.Drawing.Size(60, 20);
             this.txtZipCode.TabIndex = 15;
             this.txtZipCode.Text = "987645329";
+            this.txtZipCode.Leave += new System.EventHandler(this.FieldControl_Leave);
             // 
             // lblZipCode
             // 
@@ -218,10 +233,12 @@
             // txtEmail
             // 
             this.txtEmail.Location = new System.Drawing.Point(110, 270);
+            this.txtEmail.MaxLength = 60;
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(365, 20);
             this.txtEmail.TabIndex = 21;
             this.txtEmail.Text = "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn";
+            this.txtEmail.Leave += new System.EventHandler(this.FieldControl_Leave);
             // 
             // lblEmail
             // 
@@ -260,26 +277,30 @@
             // cboGender
             // 
             this.cboGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboGender.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboGender.FormattingEnabled = true;
             this.cboGender.Items.AddRange(new object[] {
             "M",
             "F"});
             this.cboGender.Location = new System.Drawing.Point(110, 218);
             this.cboGender.Name = "cboGender";
-            this.cboGender.Size = new System.Drawing.Size(35, 21);
+            this.cboGender.Size = new System.Drawing.Size(40, 21);
             this.cboGender.TabIndex = 17;
+            this.cboGender.Leave += new System.EventHandler(this.FieldControl_Leave);
             // 
             // cboProofPurchase
             // 
             this.cboProofPurchase.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboProofPurchase.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboProofPurchase.FormattingEnabled = true;
             this.cboProofPurchase.Items.AddRange(new object[] {
             "Yes",
             "No"});
             this.cboProofPurchase.Location = new System.Drawing.Point(110, 295);
             this.cboProofPurchase.Name = "cboProofPurchase";
-            this.cboProofPurchase.Size = new System.Drawing.Size(40, 21);
+            this.cboProofPurchase.Size = new System.Drawing.Size(45, 21);
             this.cboProofPurchase.TabIndex = 23;
+            this.cboProofPurchase.Leave += new System.EventHandler(this.FieldControl_Leave);
             // 
             // masktxtPhoneNum
             // 
@@ -288,6 +309,7 @@
             this.masktxtPhoneNum.Name = "masktxtPhoneNum";
             this.masktxtPhoneNum.Size = new System.Drawing.Size(80, 20);
             this.masktxtPhoneNum.TabIndex = 19;
+            this.masktxtPhoneNum.Leave += new System.EventHandler(this.FieldControl_Leave);
             // 
             // btnSave
             // 
