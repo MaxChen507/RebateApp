@@ -31,7 +31,7 @@ namespace RebateApp
 
         private void RebateAppMainForm_Load(object sender, EventArgs e)
         {
-            //Check if null
+            //Check if RebateInfo is null
             if (DAL.DALSingleton.Instance.GetRebateInfo() == null || !DAL.DALSingleton.Instance.GetRebateInfo().Any())
             {
                 //MessageBox.Show("Is Null");
@@ -100,6 +100,7 @@ namespace RebateApp
             datetimepickerDateReceived.Value = DateTime.ParseExact(rebateInfo.DateRecieved, "M/dd/yyyy", CultureInfo.InvariantCulture);
         }
 
+        //Keeps listview selected even when click into empty controller
         private void ListViewRebateRecords_MouseUp(object sender, MouseEventArgs e)
         {
             //works if no multiselect

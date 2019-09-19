@@ -75,9 +75,9 @@
             // 
             this.txtFirstName.Location = new System.Drawing.Point(110, 10);
             this.txtFirstName.Name = "txtFirstName";
-            this.txtFirstName.Size = new System.Drawing.Size(230, 20);
+            this.txtFirstName.Size = new System.Drawing.Size(125, 20);
             this.txtFirstName.TabIndex = 1;
-            this.txtFirstName.Text = "WWWWWWWWWWWWWWWWWWWW";
+            this.txtFirstName.Text = "nnnnnnnnnnnnnnnnnnnn";
             // 
             // txtMiddleInitial
             // 
@@ -100,7 +100,7 @@
             // 
             this.txtLastName.Location = new System.Drawing.Point(110, 62);
             this.txtLastName.Name = "txtLastName";
-            this.txtLastName.Size = new System.Drawing.Size(230, 20);
+            this.txtLastName.Size = new System.Drawing.Size(125, 20);
             this.txtLastName.TabIndex = 5;
             // 
             // lblLastName
@@ -116,9 +116,9 @@
             // 
             this.txtAddrLine1.Location = new System.Drawing.Point(110, 88);
             this.txtAddrLine1.Name = "txtAddrLine1";
-            this.txtAddrLine1.Size = new System.Drawing.Size(395, 20);
+            this.txtAddrLine1.Size = new System.Drawing.Size(215, 20);
             this.txtAddrLine1.TabIndex = 7;
-            this.txtAddrLine1.Text = "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
+            this.txtAddrLine1.Text = "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn";
             // 
             // lblAddrLine1
             // 
@@ -133,8 +133,9 @@
             // 
             this.txtAddrLine2.Location = new System.Drawing.Point(110, 114);
             this.txtAddrLine2.Name = "txtAddrLine2";
-            this.txtAddrLine2.Size = new System.Drawing.Size(395, 20);
+            this.txtAddrLine2.Size = new System.Drawing.Size(215, 20);
             this.txtAddrLine2.TabIndex = 9;
+            this.txtAddrLine2.Text = "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn";
             // 
             // lblAddrLine2
             // 
@@ -149,9 +150,9 @@
             // 
             this.txtCity.Location = new System.Drawing.Point(110, 140);
             this.txtCity.Name = "txtCity";
-            this.txtCity.Size = new System.Drawing.Size(285, 20);
+            this.txtCity.Size = new System.Drawing.Size(155, 20);
             this.txtCity.TabIndex = 11;
-            this.txtCity.Text = "WWWWWWWWWWWWWWWWWWWWWWWWW";
+            this.txtCity.Text = "nnnnnnnnnnnnnnnnnnnnnnnnn";
             // 
             // lblCity
             // 
@@ -218,9 +219,9 @@
             // 
             this.txtEmail.Location = new System.Drawing.Point(110, 270);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(670, 20);
+            this.txtEmail.Size = new System.Drawing.Size(365, 20);
             this.txtEmail.TabIndex = 21;
-            this.txtEmail.Text = "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
+            this.txtEmail.Text = "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn";
             // 
             // lblEmail
             // 
@@ -304,7 +305,7 @@
             this.toolstripstatuslabelNumRecords});
             this.statusstripRebateApp.Location = new System.Drawing.Point(0, 428);
             this.statusstripRebateApp.Name = "statusstripRebateApp";
-            this.statusstripRebateApp.Size = new System.Drawing.Size(1155, 22);
+            this.statusstripRebateApp.Size = new System.Drawing.Size(832, 22);
             this.statusstripRebateApp.TabIndex = 28;
             this.statusstripRebateApp.Text = "statusStrip1";
             // 
@@ -327,10 +328,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewRebateRecords.FullRowSelect = true;
             this.listViewRebateRecords.HideSelection = false;
-            this.listViewRebateRecords.Location = new System.Drawing.Point(820, 12);
+            this.listViewRebateRecords.Location = new System.Drawing.Point(491, 12);
             this.listViewRebateRecords.MultiSelect = false;
             this.listViewRebateRecords.Name = "listViewRebateRecords";
-            this.listViewRebateRecords.Size = new System.Drawing.Size(323, 413);
+            this.listViewRebateRecords.Size = new System.Drawing.Size(329, 413);
             this.listViewRebateRecords.TabIndex = 27;
             this.listViewRebateRecords.UseCompatibleStateImageBehavior = false;
             this.listViewRebateRecords.Click += new System.EventHandler(this.ListViewRebateRecords_Click);
@@ -341,7 +342,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1155, 450);
+            this.ClientSize = new System.Drawing.Size(832, 450);
             this.Controls.Add(this.listViewRebateRecords);
             this.Controls.Add(this.statusstripRebateApp);
             this.Controls.Add(this.btnSave);
