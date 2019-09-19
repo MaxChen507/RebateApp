@@ -34,6 +34,7 @@ namespace RebateApp.DAL
 
             List<Domain.RebateInfo> rebateInfos = new List<Domain.RebateInfo>();
 
+
             if (!rebateRecords.Any())
             {
                 return null;
