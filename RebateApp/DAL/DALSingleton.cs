@@ -28,9 +28,9 @@ namespace RebateApp.DAL
             }
         }
 
-        public ICollection<Domain.RebateInfo> GetRebateInfo()
+        public ICollection<Domain.RebateInfo> GetRebateInfo_FromFile()
         {
-            List<String> rebateRecords = ReadRebateRecordsFromFile().ToList();
+            List<String> rebateRecords = ReadRebateRecords_FromFile().ToList();
 
             List<Domain.RebateInfo> rebateInfos = new List<Domain.RebateInfo>();
 
@@ -67,7 +67,7 @@ namespace RebateApp.DAL
             return rebateInfos;
         }
 
-        public ICollection<String> ReadRebateRecordsFromFile()
+        private ICollection<String> ReadRebateRecords_FromFile()
         {
             String currentDirectoryPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
 

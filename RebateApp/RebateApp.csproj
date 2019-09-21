@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="BLL\BLLSingleton.cs" />
     <Compile Include="DAL\DALSingleton.cs" />
+    <Compile Include="Domain\CurrentMode.cs" />
     <Compile Include="Domain\RebateInfo.cs" />
     <Compile Include="RebateAppMainForm.cs">
       <SubType>Form</SubType>

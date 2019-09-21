@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RebateApp.Domain
 {
-    class RebateInfo
+    public class RebateInfo
     {
         public String Fname { get; set; }
         public String Minit { get; set; }
