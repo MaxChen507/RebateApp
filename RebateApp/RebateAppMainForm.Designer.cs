@@ -61,6 +61,7 @@
             this.toolStripStatusLabelNumRecords = new System.Windows.Forms.ToolStripStatusLabel();
             this.listViewRebateRecords = new System.Windows.Forms.ListView();
             this.btnAddMode = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
             this.statusstripRebateApp.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -332,7 +333,7 @@
             this.statusstripRebateApp.Location = new System.Drawing.Point(0, 428);
             this.statusstripRebateApp.Name = "statusstripRebateApp";
             this.statusstripRebateApp.Size = new System.Drawing.Size(832, 22);
-            this.statusstripRebateApp.TabIndex = 28;
+            this.statusstripRebateApp.TabIndex = 30;
             this.statusstripRebateApp.Text = "statusStrip1";
             // 
             // toolStripStatusLabelCurrentMode
@@ -375,16 +376,27 @@
             this.btnAddMode.Location = new System.Drawing.Point(410, 402);
             this.btnAddMode.Name = "btnAddMode";
             this.btnAddMode.Size = new System.Drawing.Size(75, 23);
-            this.btnAddMode.TabIndex = 27;
+            this.btnAddMode.TabIndex = 28;
             this.btnAddMode.Text = "Add Mode";
             this.btnAddMode.UseVisualStyleBackColor = true;
             this.btnAddMode.Click += new System.EventHandler(this.BtnAddMode_Click);
+            // 
+            // btnClear
+            // 
+            this.btnClear.Location = new System.Drawing.Point(309, 402);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(95, 23);
+            this.btnClear.TabIndex = 27;
+            this.btnClear.Text = "Clear All Fields";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.BtnClear_Click);
             // 
             // RebateAppMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(832, 450);
+            this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnAddMode);
             this.Controls.Add(this.listViewRebateRecords);
             this.Controls.Add(this.statusstripRebateApp);
@@ -460,6 +472,7 @@
         private System.Windows.Forms.ListView listViewRebateRecords;
         private System.Windows.Forms.Button btnAddMode;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelStatusMsg;
+        private System.Windows.Forms.Button btnClear;
     }
 }
 

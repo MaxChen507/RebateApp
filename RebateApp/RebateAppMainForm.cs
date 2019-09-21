@@ -35,8 +35,17 @@ namespace RebateApp
 
             //Inital Tool Strip Status'
             ChangeCurrentMode(Domain.CurrentMode.addMode);
-            toolStripStatusLabelStatusMsg.Text = "Status: " + "No Status";
 
+        }
+
+
+        private void ChangeCurrentMode(String mode)
+        {
+            BLL.BLLSingleton.Instance.currentMode = mode;
+
+            toolStripStatusLabelCurrentMode.Text = "Current Mode: " + mode;
+
+            FieldsValidation();
         }
 
         private void RefreshListView()
@@ -73,12 +82,6 @@ namespace RebateApp
             }
         }
 
-        private void ChangeCurrentMode(String mode)
-        {
-            BLL.BLLSingleton.Instance.currentMode = mode;
-
-            toolStripStatusLabelCurrentMode.Text = "Current Mode: " + mode;
-        }
 
         private void ListViewRebateRecords_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -120,12 +123,10 @@ namespace RebateApp
             datetimepickerDateReceived.Value = DateTime.ParseExact(rebateInfo.DateRecieved, "M/dd/yyyy", CultureInfo.InvariantCulture);
 
             FieldsValidation();
-            Field_ShowErrorColorsANDStatus();
         }
 
-        //Keeps listview selected even when click into empty controller
         private void ListViewRebateRecords_MouseUp(object sender, MouseEventArgs e)
-        {
+        {//Keeps listview selected even when click into empty controller
             //works if no multiselect
             if (listViewRebateRecords.FocusedItem != null)
             {
@@ -134,23 +135,81 @@ namespace RebateApp
             }
         }
 
-        private Boolean FieldsValidation()
-        {
-            Boolean correctFlag = false;
 
-            if (CheckFields() && CheckUnique())
+
+        #region Check Individual Fields Code
+        private Boolean CheckTxtFieldNonEmpty(TextBox txtBox)
+        {
+            if (txtBox.TextLength > 0)
             {
-                correctFlag = true;
+                return true;
             }
             else
             {
-                correctFlag = false;
+                return false;
             }
-
-            UpdateToolStripStatus();
-
-            return correctFlag;
         }
+
+        private Boolean CheckStateField(TextBox txtBox)
+        {
+            if (txtBox.TextLength == 2 && txtBox.Text.All(Char.IsLetter))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private Boolean CheckZipField(TextBox txtBox)
+        {
+            if ((txtBox.TextLength == 5 || txtBox.TextLength == 9) && txtBox.Text.All(Char.IsDigit))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private Boolean CheckCboField(ComboBox cboBox)
+        {
+            if (cboBox.SelectedIndex > -1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private Boolean CheckMaskTxtField(MaskedTextBox maskTxtBox)
+        {
+            if (maskTxtBox.MaskCompleted)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private Boolean CheckEmailField(TextBox txtBox)
+        {
+            if (txtBox.TextLength > 0 && txtBox.Text.Contains("@"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        #endregion
 
         private Boolean CheckFields()
         {
@@ -200,7 +259,7 @@ namespace RebateApp
 
                 Boolean currentRecordMatch = false;
 
-                if(txtFirstName.Text.Equals(rebateInfo.Fname) && txtLastName.Text.Equals(rebateInfo.Lname) && masktxtPhoneNum.Text.Equals(rebateInfo.PhoneNum))
+                if (txtFirstName.Text.Equals(rebateInfo.Fname) && txtLastName.Text.Equals(rebateInfo.Lname) && masktxtPhoneNum.Text.Equals(rebateInfo.PhoneNum))
                 {
                     currentRecordMatch = true;
                 }
@@ -220,12 +279,35 @@ namespace RebateApp
                     uniqueFlag = false;
                 }
             }
-            
+
 
             return uniqueFlag;
         }
 
-        private void Field_ShowErrorColorsANDStatus()
+        private void UpdateToolStripStatus()
+        {
+            String status = "Status: ";
+
+            if (!CheckFields())
+            {
+                status += "Highlighted fields are invalid. ";
+            }
+
+            if (!CheckUnique())
+            {
+                status += "Highlighted field lables are not unique. ";
+            }
+
+            if (CheckFields() && CheckUnique())
+            {
+                status += "All fields are valid. ";
+            }
+
+            toolStripStatusLabelStatusMsg.Text = status;
+
+        }
+
+        private void CheckField_ShowErrorColorsANDStatus()
         {
             if (CheckTxtFieldNonEmpty(txtFirstName))
             {
@@ -320,157 +402,77 @@ namespace RebateApp
             UpdateToolStripStatus();
         }
 
-        
-        #region Check Individual Fields Code
-        private Boolean CheckTxtFieldNonEmpty(TextBox txtBox)
+        private Boolean FieldsValidation()
         {
-            if (txtBox.TextLength > 0)
+            Boolean correctFlag = false;
+
+            if (CheckFields() && CheckUnique())
             {
-                return true;
+                correctFlag = true;
             }
             else
             {
-                return false;
+                correctFlag = false;
             }
+
+            CheckField_ShowErrorColorsANDStatus();
+
+            return correctFlag;
         }
 
-        private Boolean CheckStateField(TextBox txtBox)
-        {
-            if(txtBox.TextLength == 2 && txtBox.Text.All(Char.IsLetter))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
 
-        private Boolean CheckZipField(TextBox txtBox)
-        {
-            if( (txtBox.TextLength == 5 || txtBox.TextLength == 9) && txtBox.Text.All(Char.IsDigit) )
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        private Boolean CheckCboField(ComboBox cboBox)
-        {
-            if(cboBox.SelectedIndex > -1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        private Boolean CheckMaskTxtField(MaskedTextBox maskTxtBox)
-        {
-            if(maskTxtBox.MaskCompleted)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        private Boolean CheckEmailField(TextBox txtBox)
-        {
-            if(txtBox.TextLength > 0 && txtBox.Text.Contains("@"))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        #endregion
-        
-        
         #region Fields Leave Code
         private void TxtFirstName_Leave(object sender, EventArgs e)
         {
-            Field_ShowErrorColorsANDStatus();
+            CheckField_ShowErrorColorsANDStatus();
         }
 
         private void TxtLastName_Leave(object sender, EventArgs e)
         {
-            Field_ShowErrorColorsANDStatus();
+            CheckField_ShowErrorColorsANDStatus();
         }
 
         private void TxtAddrLine1_Leave(object sender, EventArgs e)
         {
-            Field_ShowErrorColorsANDStatus();
+            CheckField_ShowErrorColorsANDStatus();
         }
 
         private void TxtCity_Leave(object sender, EventArgs e)
         {
-            Field_ShowErrorColorsANDStatus();
+            CheckField_ShowErrorColorsANDStatus();
         }
 
         private void TxtState_Leave(object sender, EventArgs e)
         {
-            Field_ShowErrorColorsANDStatus();
+            CheckField_ShowErrorColorsANDStatus();
         }
 
         private void TxtZipCode_Leave(object sender, EventArgs e)
         {
-            Field_ShowErrorColorsANDStatus();
+            CheckField_ShowErrorColorsANDStatus();
         }
 
         private void CboGender_Leave(object sender, EventArgs e)
         {
-            Field_ShowErrorColorsANDStatus();
+            CheckField_ShowErrorColorsANDStatus();
         }
 
         private void MasktxtPhoneNum_Leave(object sender, EventArgs e)
         {
-            Field_ShowErrorColorsANDStatus();
+            CheckField_ShowErrorColorsANDStatus();
         }
 
         private void TxtEmail_Leave(object sender, EventArgs e)
         {
-            Field_ShowErrorColorsANDStatus();
+            CheckField_ShowErrorColorsANDStatus();
         }
 
         private void CboProofPurchase_Leave(object sender, EventArgs e)
         {
-            Field_ShowErrorColorsANDStatus();
+            CheckField_ShowErrorColorsANDStatus();
         }
         #endregion
 
-
-        private void UpdateToolStripStatus()
-        {
-            String status ="Status: ";
-
-            if (!CheckFields())
-            {
-                status += "Highlighted fields are invalid. ";
-            }
-
-            if (!CheckUnique())
-            {
-                status += "Highlighted field lables are not unique. ";
-            }
-
-            if (CheckFields() && CheckUnique())
-            {
-                status += "All fields are valid. ";
-            }
-
-            toolStripStatusLabelStatusMsg.Text = status;
-
-        }
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
@@ -482,12 +484,51 @@ namespace RebateApp
 
         private void BtnAddMode_Click(object sender, EventArgs e)
         {
+            ChangeCurrentMode(Domain.CurrentMode.addMode);
+
             MessageBox.Show(BLL.BLLSingleton.Instance.currentMode);
 
             //Domain.RebateInfo rebateInfo = (Domain.RebateInfo)listViewRebateRecords.SelectedItems[0].Tag;
 
             //MessageBox.Show(rebateInfo.Fname);
         }
+
+        private void BtnClear_Click(object sender, EventArgs e)
+        {
+            ResetAllControls(this);
+
+            FieldsValidation();
+        }
+
+        public void ResetAllControls(Control form)
+        {
+            foreach (Control control in form.Controls)
+            {
+                if (control is TextBox)
+                {
+                    TextBox textBox = (TextBox)control;
+                    textBox.Text = null;
+                }
+
+                if (control is ComboBox)
+                {
+                    ComboBox comboBox = (ComboBox)control;
+                    if (comboBox.Items.Count > 0)
+                        comboBox.SelectedIndex = -1;
+                }
+
+                if (control is MaskedTextBox)
+                {
+                    MaskedTextBox maskedTextBox = (MaskedTextBox)control;
+                    maskedTextBox.Text = null;
+                }
+                
+                //Reset Date to current
+                datetimepickerDateReceived.Value = DateTime.Now;
+
+            }
+        }
+
 
     }
 }
