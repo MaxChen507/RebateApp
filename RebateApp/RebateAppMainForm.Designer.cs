@@ -82,6 +82,7 @@
             this.txtFirstName.Size = new System.Drawing.Size(125, 20);
             this.txtFirstName.TabIndex = 1;
             this.txtFirstName.Text = "nnnnnnnnnnnnnnnnnnnn";
+            this.txtFirstName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtFirstName_KeyDown);
             this.txtFirstName.Leave += new System.EventHandler(this.TxtFirstName_Leave);
             // 
             // txtMiddleInitial
@@ -428,9 +429,11 @@
             this.Controls.Add(this.lblMiddleInitial);
             this.Controls.Add(this.txtFirstName);
             this.Controls.Add(this.lblFirstName);
+            this.KeyPreview = true;
             this.Name = "RebateAppMainForm";
             this.Text = "RebateAppMainForm";
             this.Load += new System.EventHandler(this.RebateAppMainForm_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RebateAppMainForm_KeyPress);
             this.statusstripRebateApp.ResumeLayout(false);
             this.statusstripRebateApp.PerformLayout();
             this.ResumeLayout(false);

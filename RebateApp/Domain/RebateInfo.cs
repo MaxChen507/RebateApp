@@ -21,6 +21,11 @@ namespace RebateApp.Domain
         public String Email { get; set; }
         public String ProofPurchase { get; set; }
         public String DateRecieved { get; set; }
+        
+        //Hidden Fields
+        public String TimeFirstEntered { get; set; }
+        public String TimePressedSave { get; set; }
+        public String NumPressedBackSpace { get; set; }
 
         public RebateInfo()
         {

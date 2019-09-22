@@ -13,9 +13,24 @@ namespace RebateApp
 {
     public partial class RebateAppMainForm : Form
     {
+        //Hidden Fields Variables
+        public String mainform_TimeFirstEntered;
+        public String mainform_TimePressedSave;
+        public int mainform_NumPressedBackSpace;
+
         public RebateAppMainForm()
         {
             InitializeComponent();
+
+            //Initialze starting hidden fields variables
+            ResetHiddenVariables();
+        }
+
+        private void ResetHiddenVariables()
+        {
+            mainform_TimeFirstEntered = Domain.CurrentMode.defaultHiddenVarTime;
+            mainform_TimePressedSave = Domain.CurrentMode.defaultHiddenVarTime;
+            mainform_NumPressedBackSpace = 0;
         }
 
         private void RebateAppMainForm_Load(object sender, EventArgs e)
@@ -37,7 +52,7 @@ namespace RebateApp
         }
 
 
-        #region Edit Functions Code
+        #region Edit Mode Populate Code
         private void ListViewRebateRecords_Click(object sender, EventArgs e)
         {
             ListViewRebateRecords_EditEvent();
@@ -121,9 +136,20 @@ namespace RebateApp
         }
         
 
-        #region Add Functions Code
+        #region Save Functions Code
         private void BtnSave_Click(object sender, EventArgs e)
         {
+            //First records when button save was clicked. Also checks if its in addmode
+            if (mainform_TimePressedSave.Equals(Domain.CurrentMode.defaultHiddenVarTime) && BLL.BLLSingleton.Instance.currentMode.Equals(Domain.CurrentMode.addMode))
+            {
+                mainform_TimePressedSave = DateTime.Now.ToString();
+            }
+
+            //testing
+            MessageBox.Show(mainform_TimeFirstEntered);
+            MessageBox.Show(mainform_TimePressedSave);
+            MessageBox.Show(mainform_NumPressedBackSpace.ToString());
+
             if (FieldsValidation())
             {
                 //First creates a rebateInfo to store field data
@@ -145,10 +171,23 @@ namespace RebateApp
                 //Different Modes will save in different ways
                 if (BLL.BLLSingleton.Instance.currentMode.Equals(Domain.CurrentMode.addMode))
                 {
+                    //Will use new hidden variable values
+                    rebateInfo.TimeFirstEntered = mainform_TimeFirstEntered;
+                    rebateInfo.TimePressedSave = mainform_TimePressedSave;
+                    rebateInfo.NumPressedBackSpace = mainform_NumPressedBackSpace.ToString();
+
                     AddMode_Save(rebateInfo);
                 }
                 else if (BLL.BLLSingleton.Instance.currentMode.Equals(Domain.CurrentMode.editMode))
                 {
+                    //Get selected ListViewItem
+                    Domain.RebateInfo rebateInfo_OLDVALUES = (Domain.RebateInfo)listViewRebateRecords.SelectedItems[0].Tag;
+
+                    //Will use old hidden variable values
+                    rebateInfo.TimeFirstEntered = rebateInfo_OLDVALUES.TimeFirstEntered;
+                    rebateInfo.TimePressedSave = rebateInfo_OLDVALUES.TimePressedSave;
+                    rebateInfo.NumPressedBackSpace = rebateInfo_OLDVALUES.NumPressedBackSpace;
+
                     EditMode_Save(rebateInfo);
                 }
 
@@ -629,6 +668,9 @@ namespace RebateApp
 
             //Default Mode is AddMode
             ChangeCurrentMode(Domain.CurrentMode.addMode);
+
+            //Resets hidden variables to defaults
+            ResetHiddenVariables();
         }
 
         private void BtnClear_Click(object sender, EventArgs e)
@@ -637,8 +679,29 @@ namespace RebateApp
             RefreshForm();
         }
 
+
         #endregion
 
-        
+        private void TxtFirstName_KeyDown(object sender, KeyEventArgs e)
+        {
+            //Checks if first time keydown, then keeps datetime of when
+            if (mainform_TimeFirstEntered.Equals(Domain.CurrentMode.defaultHiddenVarTime))
+            {
+                mainform_TimeFirstEntered = DateTime.Now.ToString();
+                MessageBox.Show(mainform_TimeFirstEntered);
+            }
+        }
+
+        private void RebateAppMainForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //On form settings: Set Key Preview to True First
+            //char(8) is backspace
+
+            if((e.KeyChar == (char)8))
+            {
+                mainform_NumPressedBackSpace++;
+            }
+        }
+
     }
 }

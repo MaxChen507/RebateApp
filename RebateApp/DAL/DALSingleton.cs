@@ -61,6 +61,9 @@ namespace RebateApp.DAL
                     rebateInfoTemp.Email = text[10];
                     rebateInfoTemp.ProofPurchase = text[11];
                     rebateInfoTemp.DateRecieved = text[12];
+                    rebateInfoTemp.TimeFirstEntered = text[13];
+                    rebateInfoTemp.TimePressedSave = text[14];
+                    rebateInfoTemp.NumPressedBackSpace = text[15];
 
                     rebateInfos.Add(rebateInfoTemp);
                 }
@@ -118,7 +121,10 @@ namespace RebateApp.DAL
                 rebateRecordsTxt.Append(item.PhoneNum + "\t");
                 rebateRecordsTxt.Append(item.Email + "\t");
                 rebateRecordsTxt.Append(item.ProofPurchase + "\t");
-                rebateRecordsTxt.Append(item.DateRecieved + "\n");
+                rebateRecordsTxt.Append(item.DateRecieved + "\t");
+                rebateRecordsTxt.Append(item.TimeFirstEntered + "\t");
+                rebateRecordsTxt.Append(item.TimePressedSave + "\t");
+                rebateRecordsTxt.Append(item.NumPressedBackSpace + "\n");
             }
 
             System.IO.File.WriteAllText(dataFilePath, rebateRecordsTxt.ToString());

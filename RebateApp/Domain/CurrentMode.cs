@@ -10,5 +10,7 @@ namespace RebateApp.Domain
     {
         public static String addMode = "AddMode";
         public static String editMode = "EditMode";
+
+        public static String defaultHiddenVarTime = "NO_TIME";
     }
 }
