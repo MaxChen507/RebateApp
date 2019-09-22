@@ -27,6 +27,9 @@ namespace RebateApp
 
             listViewRebateRecords.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             listViewRebateRecords.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
+            //Set MaxDate of DateTimePicker
+            datetimepickerDateReceived.MaxDate = DateTime.Today;
         }
 
         private void RebateAppMainForm_Load(object sender, EventArgs e)
@@ -593,7 +596,7 @@ namespace RebateApp
                 }
                 
                 //Reset Date to current
-                datetimepickerDateReceived.Value = DateTime.Now;
+                datetimepickerDateReceived.Value = DateTime.Today;
 
             }
         }
