@@ -93,6 +93,7 @@ namespace RebateApp
         }
         #endregion
 
+
         private void ListViewRebateRecords_MouseUp(object sender, MouseEventArgs e)
         {
             //Keeps listview selected even when user clicks into empty space on listview controller
@@ -103,6 +104,7 @@ namespace RebateApp
                     listViewRebateRecords.FocusedItem.Selected = true;
             }
         }
+
 
         #region Delete Functions Code
         private void ListViewRebateRecords_KeyDown(object sender, KeyEventArgs e)
@@ -733,7 +735,6 @@ namespace RebateApp
             if (mainform_TimeFirstEntered.Equals(Domain.CurrentMode.defaultHiddenVarTime))
             {
                 mainform_TimeFirstEntered = DateTime.Now.ToString();
-                MessageBox.Show(mainform_TimeFirstEntered);
             }
         }
 
