@@ -483,28 +483,10 @@ namespace RebateApp
                 Domain.RebateInfo rebateInfo = new Domain.RebateInfo();
 
                 rebateInfo.Fname = txtFirstName.Text;
-
-                if (txtMiddleInitial.TextLength == 0)
-                {
-                    rebateInfo.Minit = "\t";
-                }
-                else
-                {
-                    rebateInfo.Minit = txtMiddleInitial.Text;
-                }
-
+                rebateInfo.Minit = txtMiddleInitial.Text;
                 rebateInfo.Lname = txtLastName.Text;
                 rebateInfo.Addr1 = txtAddrLine1.Text;
-
-                if (txtAddrLine2.TextLength == 0)
-                {
-                    rebateInfo.Addr2 = "\t";
-                }
-                else
-                {
-                    rebateInfo.Addr2 = txtAddrLine2.Text;
-                }
-
+                rebateInfo.Addr2 = txtAddrLine2.Text;
                 rebateInfo.City = txtCity.Text;
                 rebateInfo.State = txtState.Text;
                 rebateInfo.Zip = txtZipCode.Text;
