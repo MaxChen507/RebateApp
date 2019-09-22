@@ -1,2 +1,0 @@
-Max	M	Chen	Addr1	Addr2	Richardson	TX	75080	M	8883334444	max@gmail.com	Yes	09/19/2019
-John	M	Chen	Addr3	Addr4	Sugarland	TX	77479	M	8883334444	john@gmail.com	Yes	9/19/2019
