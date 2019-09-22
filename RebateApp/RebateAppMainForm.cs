@@ -26,13 +26,6 @@ namespace RebateApp
             ResetHiddenVariables();
         }
 
-        private void ResetHiddenVariables()
-        {
-            mainform_TimeFirstEntered = Domain.CurrentMode.defaultHiddenVarTime;
-            mainform_TimePressedSave = Domain.CurrentMode.defaultHiddenVarTime;
-            mainform_NumPressedBackSpace = 0;
-        }
-
         private void RebateAppMainForm_Load(object sender, EventArgs e)
         {
             //Change ListView Settings
@@ -45,7 +38,7 @@ namespace RebateApp
             listViewRebateRecords.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
             //Set MaxDate of DateTimePicker
-            datetimepickerDateReceived.MaxDate = DateTime.Today;
+            dateTimePickerDateReceived.MaxDate = DateTime.Today;
 
             //Refreshes the form to default
             RefreshForm();
@@ -63,7 +56,7 @@ namespace RebateApp
             if (e.KeyChar == Convert.ToChar(Keys.Return))
             {
                 ListViewRebateRecords_EditEvent();
-            }            
+            }
         }
 
         private void ListViewRebateRecords_EditEvent()
@@ -93,13 +86,23 @@ namespace RebateApp
             masktxtPhoneNum.Text = rebateInfo.PhoneNum;
             txtEmail.Text = rebateInfo.Email;
             cboProofPurchase.SelectedIndex = cboProofPurchase.FindStringExact(rebateInfo.ProofPurchase);
-            datetimepickerDateReceived.Value = DateTime.ParseExact(rebateInfo.DateRecieved, "M/dd/yyyy", CultureInfo.InvariantCulture);
+            dateTimePickerDateReceived.Value = DateTime.ParseExact(rebateInfo.DateRecieved, "M/dd/yyyy", CultureInfo.InvariantCulture);
 
             //After populating it will check for valid (should be valid)
             FieldsValidation();
         }
         #endregion
 
+        private void ListViewRebateRecords_MouseUp(object sender, MouseEventArgs e)
+        {
+            //Keeps listview selected even when user clicks into empty space on listview controller
+            //works if no multiselect
+            if (listViewRebateRecords.FocusedItem != null)
+            {
+                if (listViewRebateRecords.SelectedItems.Count == 0)
+                    listViewRebateRecords.FocusedItem.Selected = true;
+            }
+        }
 
         #region Delete Functions Code
         private void ListViewRebateRecords_KeyDown(object sender, KeyEventArgs e)
@@ -115,6 +118,12 @@ namespace RebateApp
             DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete the record permanently?", "Delete Record Confirmation", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
+                //Does not do the follwing if there are no selected items
+                if (listViewRebateRecords.SelectedItems.Count == 0)
+                {
+                    return;
+                }
+
                 //Removes the selcted ListViewItem
                 listViewRebateRecords.SelectedItems[0].Remove();
 
@@ -128,22 +137,10 @@ namespace RebateApp
             {
 
             }
-            
+
         }
         #endregion Code
 
-
-        private void ListViewRebateRecords_MouseUp(object sender, MouseEventArgs e)
-        {   
-            //Keeps listview selected even when user clicks into empty space on listview controller
-                //works if no multiselect
-            if (listViewRebateRecords.FocusedItem != null)
-            {
-                if (listViewRebateRecords.SelectedItems.Count == 0)
-                    listViewRebateRecords.FocusedItem.Selected = true;
-            }
-        }
-        
 
         #region Save Functions Code
         private void BtnSave_Click(object sender, EventArgs e)
@@ -155,9 +152,9 @@ namespace RebateApp
             }
 
             //testing
-            MessageBox.Show(mainform_TimeFirstEntered);
-            MessageBox.Show(mainform_TimePressedSave);
-            MessageBox.Show(mainform_NumPressedBackSpace.ToString());
+            //MessageBox.Show(mainform_TimeFirstEntered);
+            //MessageBox.Show(mainform_TimePressedSave);
+            //MessageBox.Show(mainform_NumPressedBackSpace.ToString());
 
             if (FieldsValidation())
             {
@@ -175,7 +172,7 @@ namespace RebateApp
                 rebateInfo.PhoneNum = masktxtPhoneNum.Text;
                 rebateInfo.Email = txtEmail.Text;
                 rebateInfo.ProofPurchase = cboProofPurchase.SelectedItem.ToString();
-                rebateInfo.DateRecieved = datetimepickerDateReceived.Value.ToString("M/dd/yyyy");
+                rebateInfo.DateRecieved = dateTimePickerDateReceived.Value.ToString("M/dd/yyyy");
 
                 //Different Modes will save in different ways
                 if (BLL.BLLSingleton.Instance.currentMode.Equals(Domain.CurrentMode.addMode))
@@ -189,6 +186,12 @@ namespace RebateApp
                 }
                 else if (BLL.BLLSingleton.Instance.currentMode.Equals(Domain.CurrentMode.editMode))
                 {
+                    //Does not do the follwing if there are no selected items
+                    if (listViewRebateRecords.SelectedItems.Count == 0)
+                    {
+                        return;
+                    }
+
                     //Get selected ListViewItem
                     Domain.RebateInfo rebateInfo_OLDVALUES = (Domain.RebateInfo)listViewRebateRecords.SelectedItems[0].Tag;
 
@@ -211,6 +214,12 @@ namespace RebateApp
 
         private void EditMode_Save(Domain.RebateInfo rebateInfo)
         {
+            //Does not do the follwing if there are no selected items
+            if (listViewRebateRecords.SelectedItems.Count == 0)
+            {
+                return;
+            }
+
             //Get selected ListViewItem
             ListViewItem selectedItem = listViewRebateRecords.SelectedItems[0];
 
@@ -366,6 +375,12 @@ namespace RebateApp
 
             if (BLL.BLLSingleton.Instance.currentMode.Equals(Domain.CurrentMode.editMode))
             {
+                //Does not do the follwing if there are no selected items
+                if (listViewRebateRecords.SelectedItems.Count == 0)
+                {
+                    return false;
+                }
+
                 Domain.RebateInfo rebateInfo = (Domain.RebateInfo)listViewRebateRecords.SelectedItems[0].Tag;
 
                 Boolean currentRecordMatch = false;
@@ -585,7 +600,7 @@ namespace RebateApp
         #endregion
 
         #endregion
-      
+
 
         private void ChangeCurrentMode(String mode)
         {
@@ -611,23 +626,29 @@ namespace RebateApp
                 {
                     TextBox textBox = (TextBox)control;
                     textBox.Text = null;
+                    textBox.BackColor = default(Color);
                 }
 
                 if (control is ComboBox)
                 {
                     ComboBox comboBox = (ComboBox)control;
                     if (comboBox.Items.Count > 0)
+                    {
                         comboBox.SelectedIndex = -1;
+                    }
+                    comboBox.BackColor = default(Color);
+
                 }
 
                 if (control is MaskedTextBox)
                 {
                     MaskedTextBox maskedTextBox = (MaskedTextBox)control;
                     maskedTextBox.Text = null;
+                    maskedTextBox.BackColor = default(Color);
                 }
 
                 //Reset Date to current
-                datetimepickerDateReceived.Value = DateTime.Today;
+                dateTimePickerDateReceived.Value = DateTime.Today;
 
                 //Force Focus to First Field
                 txtFirstName.Focus();
@@ -667,6 +688,14 @@ namespace RebateApp
             }
         }
 
+        private void ResetHiddenVariables()
+        {
+            mainform_TimeFirstEntered = Domain.CurrentMode.defaultHiddenVarTime;
+            mainform_TimePressedSave = Domain.CurrentMode.defaultHiddenVarTime;
+            mainform_NumPressedBackSpace = 0;
+        }
+
+
         private void RefreshForm()
         {
             //Clears all data in fields
@@ -680,17 +709,24 @@ namespace RebateApp
 
             //Resets hidden variables to defaults
             ResetHiddenVariables();
+
+            //Clears all data in fields (Again to fix colors)
+            ResetAllControls(this);
+
+            //Update status to initial
+            toolStripStatusLabelStatusMsg.Text = "Status: New Add";
+
         }
 
-        private void BtnClear_Click(object sender, EventArgs e)
+        private void BtnClear_MouseDown(object sender, MouseEventArgs e)
         {
             //Refreshes the form to default
             RefreshForm();
         }
-
-
         #endregion
 
+
+        #region Hidden Variable Functions
         private void TxtFirstName_KeyDown(object sender, KeyEventArgs e)
         {
             //Checks if first time keydown, then keeps datetime of when
@@ -706,11 +742,15 @@ namespace RebateApp
             //On form settings: Set Key Preview to True First
             //char(8) is backspace
 
-            if((e.KeyChar == (char)8))
+            if ((e.KeyChar == (char)8))
             {
                 mainform_NumPressedBackSpace++;
             }
         }
 
+
+        #endregion
+
+        
     }
 }

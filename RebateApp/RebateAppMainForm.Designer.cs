@@ -50,19 +50,18 @@
             this.lblEmail = new System.Windows.Forms.Label();
             this.lblProofPurchase = new System.Windows.Forms.Label();
             this.lblDateReceived = new System.Windows.Forms.Label();
-            this.datetimepickerDateReceived = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerDateReceived = new System.Windows.Forms.DateTimePicker();
             this.cboGender = new System.Windows.Forms.ComboBox();
             this.cboProofPurchase = new System.Windows.Forms.ComboBox();
             this.masktxtPhoneNum = new System.Windows.Forms.MaskedTextBox();
             this.btnSave = new System.Windows.Forms.Button();
-            this.statusstripRebateApp = new System.Windows.Forms.StatusStrip();
+            this.statusStripRebateApp = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelCurrentMode = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelStatusMsg = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabelNumRecords = new System.Windows.Forms.ToolStripStatusLabel();
             this.listViewRebateRecords = new System.Windows.Forms.ListView();
             this.btnAddMode = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
-            this.statusstripRebateApp.SuspendLayout();
+            this.statusStripRebateApp.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblFirstName
@@ -81,7 +80,6 @@
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(125, 20);
             this.txtFirstName.TabIndex = 1;
-            this.txtFirstName.Text = "nnnnnnnnnnnnnnnnnnnn";
             this.txtFirstName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtFirstName_KeyDown);
             this.txtFirstName.Leave += new System.EventHandler(this.TxtFirstName_Leave);
             // 
@@ -92,7 +90,6 @@
             this.txtMiddleInitial.Name = "txtMiddleInitial";
             this.txtMiddleInitial.Size = new System.Drawing.Size(20, 20);
             this.txtMiddleInitial.TabIndex = 3;
-            this.txtMiddleInitial.Text = "W";
             // 
             // lblMiddleInitial
             // 
@@ -128,7 +125,6 @@
             this.txtAddrLine1.Name = "txtAddrLine1";
             this.txtAddrLine1.Size = new System.Drawing.Size(215, 20);
             this.txtAddrLine1.TabIndex = 7;
-            this.txtAddrLine1.Text = "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn";
             this.txtAddrLine1.Leave += new System.EventHandler(this.TxtAddrLine1_Leave);
             // 
             // lblAddrLine1
@@ -147,7 +143,6 @@
             this.txtAddrLine2.Name = "txtAddrLine2";
             this.txtAddrLine2.Size = new System.Drawing.Size(215, 20);
             this.txtAddrLine2.TabIndex = 9;
-            this.txtAddrLine2.Text = "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn";
             // 
             // lblAddrLine2
             // 
@@ -165,7 +160,6 @@
             this.txtCity.Name = "txtCity";
             this.txtCity.Size = new System.Drawing.Size(155, 20);
             this.txtCity.TabIndex = 11;
-            this.txtCity.Text = "nnnnnnnnnnnnnnnnnnnnnnnnn";
             this.txtCity.Leave += new System.EventHandler(this.TxtCity_Leave);
             // 
             // lblCity
@@ -184,7 +178,6 @@
             this.txtState.Name = "txtState";
             this.txtState.Size = new System.Drawing.Size(30, 20);
             this.txtState.TabIndex = 13;
-            this.txtState.Text = "WW";
             this.txtState.Leave += new System.EventHandler(this.TxtState_Leave);
             // 
             // lblState
@@ -203,7 +196,6 @@
             this.txtZipCode.Name = "txtZipCode";
             this.txtZipCode.Size = new System.Drawing.Size(60, 20);
             this.txtZipCode.TabIndex = 15;
-            this.txtZipCode.Text = "987645329";
             this.txtZipCode.Leave += new System.EventHandler(this.TxtZipCode_Leave);
             // 
             // lblZipCode
@@ -240,7 +232,6 @@
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(365, 20);
             this.txtEmail.TabIndex = 21;
-            this.txtEmail.Text = "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn";
             this.txtEmail.Leave += new System.EventHandler(this.TxtEmail_Leave);
             // 
             // lblEmail
@@ -270,12 +261,12 @@
             this.lblDateReceived.TabIndex = 24;
             this.lblDateReceived.Text = "Date Recieved";
             // 
-            // datetimepickerDateReceived
+            // dateTimePickerDateReceived
             // 
-            this.datetimepickerDateReceived.Location = new System.Drawing.Point(110, 322);
-            this.datetimepickerDateReceived.Name = "datetimepickerDateReceived";
-            this.datetimepickerDateReceived.Size = new System.Drawing.Size(200, 20);
-            this.datetimepickerDateReceived.TabIndex = 25;
+            this.dateTimePickerDateReceived.Location = new System.Drawing.Point(110, 322);
+            this.dateTimePickerDateReceived.Name = "dateTimePickerDateReceived";
+            this.dateTimePickerDateReceived.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerDateReceived.TabIndex = 25;
             // 
             // cboGender
             // 
@@ -325,17 +316,16 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
-            // statusstripRebateApp
+            // statusStripRebateApp
             // 
-            this.statusstripRebateApp.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusStripRebateApp.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabelCurrentMode,
-            this.toolStripStatusLabelStatusMsg,
-            this.toolStripStatusLabelNumRecords});
-            this.statusstripRebateApp.Location = new System.Drawing.Point(0, 428);
-            this.statusstripRebateApp.Name = "statusstripRebateApp";
-            this.statusstripRebateApp.Size = new System.Drawing.Size(832, 22);
-            this.statusstripRebateApp.TabIndex = 30;
-            this.statusstripRebateApp.Text = "statusStrip1";
+            this.toolStripStatusLabelStatusMsg});
+            this.statusStripRebateApp.Location = new System.Drawing.Point(0, 428);
+            this.statusStripRebateApp.Name = "statusStripRebateApp";
+            this.statusStripRebateApp.Size = new System.Drawing.Size(832, 22);
+            this.statusStripRebateApp.TabIndex = 30;
+            this.statusStripRebateApp.Text = "statusStrip";
             // 
             // toolStripStatusLabelCurrentMode
             // 
@@ -348,12 +338,6 @@
             this.toolStripStatusLabelStatusMsg.Name = "toolStripStatusLabelStatusMsg";
             this.toolStripStatusLabelStatusMsg.Size = new System.Drawing.Size(45, 17);
             this.toolStripStatusLabelStatusMsg.Text = "Status: ";
-            // 
-            // toolStripStatusLabelNumRecords
-            // 
-            this.toolStripStatusLabelNumRecords.Name = "toolStripStatusLabelNumRecords";
-            this.toolStripStatusLabelNumRecords.Size = new System.Drawing.Size(116, 17);
-            this.toolStripStatusLabelNumRecords.Text = "Number of Records: ";
             // 
             // listViewRebateRecords
             // 
@@ -391,7 +375,7 @@
             this.btnClear.TabIndex = 27;
             this.btnClear.Text = "Clear All Fields";
             this.btnClear.UseVisualStyleBackColor = true;
-            this.btnClear.Click += new System.EventHandler(this.BtnClear_Click);
+            this.btnClear.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BtnClear_MouseDown);
             // 
             // RebateAppMainForm
             // 
@@ -401,12 +385,12 @@
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnAddMode);
             this.Controls.Add(this.listViewRebateRecords);
-            this.Controls.Add(this.statusstripRebateApp);
+            this.Controls.Add(this.statusStripRebateApp);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.masktxtPhoneNum);
             this.Controls.Add(this.cboProofPurchase);
             this.Controls.Add(this.cboGender);
-            this.Controls.Add(this.datetimepickerDateReceived);
+            this.Controls.Add(this.dateTimePickerDateReceived);
             this.Controls.Add(this.lblDateReceived);
             this.Controls.Add(this.lblProofPurchase);
             this.Controls.Add(this.txtEmail);
@@ -434,8 +418,8 @@
             this.Text = "RebateAppMainForm";
             this.Load += new System.EventHandler(this.RebateAppMainForm_Load);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RebateAppMainForm_KeyPress);
-            this.statusstripRebateApp.ResumeLayout(false);
-            this.statusstripRebateApp.PerformLayout();
+            this.statusStripRebateApp.ResumeLayout(false);
+            this.statusStripRebateApp.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -465,14 +449,13 @@
         private System.Windows.Forms.Label lblEmail;
         private System.Windows.Forms.Label lblProofPurchase;
         private System.Windows.Forms.Label lblDateReceived;
-        private System.Windows.Forms.DateTimePicker datetimepickerDateReceived;
+        private System.Windows.Forms.DateTimePicker dateTimePickerDateReceived;
         private System.Windows.Forms.ComboBox cboGender;
         private System.Windows.Forms.ComboBox cboProofPurchase;
         private System.Windows.Forms.MaskedTextBox masktxtPhoneNum;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.StatusStrip statusstripRebateApp;
+        private System.Windows.Forms.StatusStrip statusStripRebateApp;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelCurrentMode;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelNumRecords;
         private System.Windows.Forms.ListView listViewRebateRecords;
         private System.Windows.Forms.Button btnAddMode;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelStatusMsg;
