@@ -368,6 +368,7 @@
             this.listViewRebateRecords.TabIndex = 29;
             this.listViewRebateRecords.UseCompatibleStateImageBehavior = false;
             this.listViewRebateRecords.Click += new System.EventHandler(this.ListViewRebateRecords_Click);
+            this.listViewRebateRecords.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListViewRebateRecords_KeyDown);
             this.listViewRebateRecords.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ListViewRebateRecords_KeyPress);
             this.listViewRebateRecords.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ListViewRebateRecords_MouseUp);
             // 

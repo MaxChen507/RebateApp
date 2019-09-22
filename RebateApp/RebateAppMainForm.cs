@@ -16,73 +16,24 @@ namespace RebateApp
         public RebateAppMainForm()
         {
             InitializeComponent();
+        }
 
+        private void RebateAppMainForm_Load(object sender, EventArgs e)
+        {
             //Change ListView Settings
             listViewRebateRecords.View = View.Details;
             listViewRebateRecords.GridLines = true;
-
             listViewRebateRecords.Columns.Add("First Name");
             listViewRebateRecords.Columns.Add("Last Name");
             listViewRebateRecords.Columns.Add("Phone Number");
-
             listViewRebateRecords.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             listViewRebateRecords.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
             //Set MaxDate of DateTimePicker
             datetimepickerDateReceived.MaxDate = DateTime.Today;
-        }
 
-        private void RebateAppMainForm_Load(object sender, EventArgs e)
-        {
-            RefreshListView();
-
-            //Inital Tool Strip Status'
-            ChangeCurrentMode(Domain.CurrentMode.addMode);
-
-        }
-
-
-        private void ChangeCurrentMode(String mode)
-        {
-            BLL.BLLSingleton.Instance.currentMode = mode;
-
-            toolStripStatusLabelCurrentMode.Text = "Current Mode: " + mode;
-
-            FieldsValidation();
-        }
-
-        private void RefreshListView()
-        {
-            //Clears Litview
-            listViewRebateRecords.Items.Clear();
-            
-            //Check if RebateInfo is null
-            if (BLL.BLLSingleton.Instance.GetRebateInfo() == null || !BLL.BLLSingleton.Instance.GetRebateInfo().Any())
-            {
-                //MessageBox.Show("Is Null");
-                listViewRebateRecords.Enabled = false;
-                return;
-            }
-            else
-            {
-                listViewRebateRecords.Enabled = true;
-            }
-
-            //Populates Listview
-            List<Domain.RebateInfo> rebateInfos = BLL.BLLSingleton.Instance.GetRebateInfo().ToList();
-
-            foreach (Domain.RebateInfo record in rebateInfos)
-            {
-                ListViewItem item = new ListViewItem(new[] { record.Fname, record.Lname, record.PhoneNum });
-                item.Tag = record;
-
-                listViewRebateRecords.Items.Add(item);
-            }
-
-            if (listViewRebateRecords.Items.Count > 0)
-            {
-                listViewRebateRecords.Items[0].Selected = true;
-            }
+            //Refreshes the form to default
+            RefreshForm();
         }
 
 
@@ -91,6 +42,14 @@ namespace RebateApp
             if (e.KeyChar == Convert.ToChar(Keys.Return))
             {
                 ListViewRebateRecords_EditEvent();
+            }            
+        }
+
+        private void ListViewRebateRecords_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                ListViewRebateRecords_DeleteEvent();
             }
         }
 
@@ -101,16 +60,19 @@ namespace RebateApp
 
         private void ListViewRebateRecords_EditEvent()
         {
+            //First changes the mode to EditMode
             ChangeCurrentMode(Domain.CurrentMode.editMode);
 
+            //Does not do the edit event if there are no selected items
             if (listViewRebateRecords.SelectedItems.Count == 0)
             {
                 return;
             }
 
+            //Obtains rebateInfo from single selected item
             Domain.RebateInfo rebateInfo = (Domain.RebateInfo)listViewRebateRecords.SelectedItems[0].Tag;
 
-            //populate rebate record fields
+            //Populates fields from rebateInfo
             txtFirstName.Text = rebateInfo.Fname;
             txtMiddleInitial.Text = rebateInfo.Minit;
             txtLastName.Text = rebateInfo.Lname;
@@ -125,12 +87,26 @@ namespace RebateApp
             cboProofPurchase.SelectedIndex = cboProofPurchase.FindStringExact(rebateInfo.ProofPurchase);
             datetimepickerDateReceived.Value = DateTime.ParseExact(rebateInfo.DateRecieved, "M/dd/yyyy", CultureInfo.InvariantCulture);
 
+            //After populating it will check for valid (should be valid)
             FieldsValidation();
         }
 
+        private void ListViewRebateRecords_DeleteEvent()
+        {
+            //Removes the selcted ListViewItem
+            listViewRebateRecords.SelectedItems[0].Remove();
+
+            //Will save the listview as list to the DAL
+            BLL.BLLSingleton.Instance.SaveRebateInfo(RebateInfoListViewToList(listViewRebateRecords));
+
+            //Refreshes the form to default
+            RefreshForm();
+        }
+
         private void ListViewRebateRecords_MouseUp(object sender, MouseEventArgs e)
-        {//Keeps listview selected even when click into empty controller
-            //works if no multiselect
+        {   
+            //Keeps listview selected even when user clicks into empty space on listview controller
+                //works if no multiselect
             if (listViewRebateRecords.FocusedItem != null)
             {
                 if (listViewRebateRecords.SelectedItems.Count == 0)
@@ -139,6 +115,7 @@ namespace RebateApp
         }
 
 
+        #region Error Handling Code
 
         #region Check Individual Fields Code
         private Boolean CheckTxtFieldNonEmpty(TextBox txtBox)
@@ -310,7 +287,7 @@ namespace RebateApp
 
         }
 
-        private void CheckField_ShowErrorColorsANDStatus()
+        private void CheckFields_ShowErrorColors()
         {
             if (CheckTxtFieldNonEmpty(txtFirstName))
             {
@@ -407,6 +384,7 @@ namespace RebateApp
 
         private Boolean FieldsValidation()
         {
+            //Checks for both correct input and unique input
             Boolean correctFlag = false;
 
             if (CheckFields() && CheckUnique())
@@ -418,73 +396,72 @@ namespace RebateApp
                 correctFlag = false;
             }
 
-            CheckField_ShowErrorColorsANDStatus();
+            CheckFields_ShowErrorColors();
 
             return correctFlag;
         }
 
-
         #region Fields Leave Code
         private void TxtFirstName_Leave(object sender, EventArgs e)
         {
-            CheckField_ShowErrorColorsANDStatus();
+            CheckFields_ShowErrorColors();
         }
 
         private void TxtLastName_Leave(object sender, EventArgs e)
         {
-            CheckField_ShowErrorColorsANDStatus();
+            CheckFields_ShowErrorColors();
         }
 
         private void TxtAddrLine1_Leave(object sender, EventArgs e)
         {
-            CheckField_ShowErrorColorsANDStatus();
+            CheckFields_ShowErrorColors();
         }
 
         private void TxtCity_Leave(object sender, EventArgs e)
         {
-            CheckField_ShowErrorColorsANDStatus();
+            CheckFields_ShowErrorColors();
         }
 
         private void TxtState_Leave(object sender, EventArgs e)
         {
-            CheckField_ShowErrorColorsANDStatus();
+            CheckFields_ShowErrorColors();
         }
 
         private void TxtZipCode_Leave(object sender, EventArgs e)
         {
-            CheckField_ShowErrorColorsANDStatus();
+            CheckFields_ShowErrorColors();
         }
 
         private void CboGender_Leave(object sender, EventArgs e)
         {
-            CheckField_ShowErrorColorsANDStatus();
+            CheckFields_ShowErrorColors();
         }
 
         private void MasktxtPhoneNum_Leave(object sender, EventArgs e)
         {
-            CheckField_ShowErrorColorsANDStatus();
+            CheckFields_ShowErrorColors();
         }
 
         private void TxtEmail_Leave(object sender, EventArgs e)
         {
-            CheckField_ShowErrorColorsANDStatus();
+            CheckFields_ShowErrorColors();
         }
 
         private void CboProofPurchase_Leave(object sender, EventArgs e)
         {
-            CheckField_ShowErrorColorsANDStatus();
+            CheckFields_ShowErrorColors();
         }
+        #endregion
+
         #endregion
 
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(FieldsValidation().ToString());
-
             if (FieldsValidation())
             {
+                //First creates a rebateInfo to store field data
                 Domain.RebateInfo rebateInfo = new Domain.RebateInfo();
-
                 rebateInfo.Fname = txtFirstName.Text;
                 rebateInfo.Minit = txtMiddleInitial.Text;
                 rebateInfo.Lname = txtLastName.Text;
@@ -499,7 +476,7 @@ namespace RebateApp
                 rebateInfo.ProofPurchase = cboProofPurchase.SelectedItem.ToString();
                 rebateInfo.DateRecieved = datetimepickerDateReceived.Value.ToString("M/dd/yyyy");
 
-                //Different Modes
+                //Different Modes will save in different ways
                 if (BLL.BLLSingleton.Instance.currentMode.Equals(Domain.CurrentMode.addMode))
                 {
                     AddMode_Save(rebateInfo);
@@ -509,23 +486,21 @@ namespace RebateApp
                     EditMode_Save(rebateInfo);
                 }
 
+                //Will save the listview as list to the DAL
                 BLL.BLLSingleton.Instance.SaveRebateInfo(RebateInfoListViewToList(listViewRebateRecords));
 
-                ResetAllControls(this);
-                RefreshListView();
-
-                //Inital Tool Strip Status'
-                ChangeCurrentMode(Domain.CurrentMode.addMode);
+                //Refreshes the form to default
+                RefreshForm();
             }
-
 
         }
 
         private void EditMode_Save(Domain.RebateInfo rebateInfo)
         {
-            //Get ListViewItem
+            //Get selected ListViewItem
             ListViewItem selectedItem = listViewRebateRecords.SelectedItems[0];
-            //Set NewValues
+            
+            //Set new values to ListView
             selectedItem.SubItems[0].Text = rebateInfo.Fname;
             selectedItem.SubItems[1].Text = rebateInfo.Lname;
             selectedItem.SubItems[2].Text = rebateInfo.PhoneNum;
@@ -534,7 +509,7 @@ namespace RebateApp
 
         private void AddMode_Save(Domain.RebateInfo rebateInfo)
         {
-            //Add ListViewItem
+            //Add ListViewItem to ListView
             ListViewItem item = new ListViewItem(new[] { rebateInfo.Fname, rebateInfo.Lname, rebateInfo.PhoneNum });
             item.Tag = rebateInfo;
             listViewRebateRecords.Items.Add(item);
@@ -557,21 +532,20 @@ namespace RebateApp
         private void BtnAddMode_Click(object sender, EventArgs e)
         {
             ChangeCurrentMode(Domain.CurrentMode.addMode);
-
-            MessageBox.Show(BLL.BLLSingleton.Instance.currentMode);
-
-            //Domain.RebateInfo rebateInfo = (Domain.RebateInfo)listViewRebateRecords.SelectedItems[0].Tag;
-
-            //MessageBox.Show(rebateInfo.Fname);
         }
 
-        private void BtnClear_Click(object sender, EventArgs e)
-        {
-            ResetAllControls(this);
 
+        private void ChangeCurrentMode(String mode)
+        {
+            BLL.BLLSingleton.Instance.currentMode = mode;
+            toolStripStatusLabelCurrentMode.Text = "Current Mode: " + mode;
+
+            //After changing modes it will check all the fields agian for the new mode
             FieldsValidation();
         }
 
+
+        #region Refresh Form Code
         public void ResetAllControls(Control form)
         {
             foreach (Control control in form.Controls)
@@ -594,13 +568,68 @@ namespace RebateApp
                     MaskedTextBox maskedTextBox = (MaskedTextBox)control;
                     maskedTextBox.Text = null;
                 }
-                
+
                 //Reset Date to current
                 datetimepickerDateReceived.Value = DateTime.Today;
 
+                //Force Focus to First Field
+                txtFirstName.Focus();
             }
         }
 
+        private void RefreshListView()
+        {
+            //Clears ListView
+            listViewRebateRecords.Items.Clear();
 
+            //Check if RebateInfo is null
+            if (BLL.BLLSingleton.Instance.GetRebateInfo() == null || !BLL.BLLSingleton.Instance.GetRebateInfo().Any())
+            {
+                listViewRebateRecords.Enabled = false;
+                return;
+            }
+            else
+            {
+                listViewRebateRecords.Enabled = true;
+            }
+
+            //Populates Listview
+            List<Domain.RebateInfo> rebateInfos = BLL.BLLSingleton.Instance.GetRebateInfo().ToList();
+            foreach (Domain.RebateInfo record in rebateInfos)
+            {
+                ListViewItem item = new ListViewItem(new[] { record.Fname, record.Lname, record.PhoneNum });
+                item.Tag = record;
+
+                listViewRebateRecords.Items.Add(item);
+            }
+
+            //Default selects the first listviewitem
+            if (listViewRebateRecords.Items.Count > 0)
+            {
+                listViewRebateRecords.Items[0].Selected = true;
+            }
+        }
+
+        private void RefreshForm()
+        {
+            //Clears all data in fields
+            ResetAllControls(this);
+
+            //Refreshes the ListView
+            RefreshListView();
+
+            //Default Mode is AddMode
+            ChangeCurrentMode(Domain.CurrentMode.addMode);
+        }
+
+        private void BtnClear_Click(object sender, EventArgs e)
+        {
+            //Refreshes the form to default
+            RefreshForm();
+        }
+
+        #endregion
+
+        
     }
 }
