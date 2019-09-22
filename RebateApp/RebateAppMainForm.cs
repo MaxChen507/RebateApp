@@ -112,14 +112,23 @@ namespace RebateApp
 
         private void ListViewRebateRecords_DeleteEvent()
         {
-            //Removes the selcted ListViewItem
-            listViewRebateRecords.SelectedItems[0].Remove();
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete the record permanently?", "Delete Record Confirmation", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                //Removes the selcted ListViewItem
+                listViewRebateRecords.SelectedItems[0].Remove();
 
-            //Will save the listview as list to the DAL
-            BLL.BLLSingleton.Instance.SaveRebateInfo(RebateInfoListViewToList(listViewRebateRecords));
+                //Will save the listview as list to the DAL
+                BLL.BLLSingleton.Instance.SaveRebateInfo(RebateInfoListViewToList(listViewRebateRecords));
 
-            //Refreshes the form to default
-            RefreshForm();
+                //Refreshes the form to default
+                RefreshForm();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+
+            }
+            
         }
         #endregion Code
 
