@@ -63,9 +63,9 @@ namespace RebateApp.BLL
             return uniqueFlag;
         }
 
-        public void AddRebateInfo(Domain.RebateInfo rebateInfo)
+        public void SaveRebateInfo(ICollection<Domain.RebateInfo> rebateInfos)
         {
-            DAL.DALSingleton.Instance.SaveRebateInfo_ToFile(rebateInfo);
+            DAL.DALSingleton.Instance.SaveRebateInfo_ToFile(rebateInfos);
         }
 
     }

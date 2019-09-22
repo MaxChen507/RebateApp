@@ -514,7 +514,17 @@ namespace RebateApp
                 rebateInfo.ProofPurchase = cboProofPurchase.SelectedItem.ToString();
                 rebateInfo.DateRecieved = datetimepickerDateReceived.Value.ToString("M/dd/yyyy");
 
-                DAL.DALSingleton.Instance.SaveRebateInfo_ToFile(rebateInfo);
+                //Different Modes
+                if (BLL.BLLSingleton.Instance.currentMode.Equals(Domain.CurrentMode.addMode))
+                {
+                    AddMode_Save(rebateInfo);
+                }
+                else if (BLL.BLLSingleton.Instance.currentMode.Equals(Domain.CurrentMode.editMode))
+                {
+                    EditMode_Save(rebateInfo);
+                }
+
+                BLL.BLLSingleton.Instance.SaveRebateInfo(RebateInfoListViewToList(listViewRebateRecords));
 
                 ResetAllControls(this);
                 RefreshListView();
@@ -523,6 +533,40 @@ namespace RebateApp
                 ChangeCurrentMode(Domain.CurrentMode.addMode);
             }
 
+
+        }
+
+        private void EditMode_Save(Domain.RebateInfo rebateInfo)
+        {
+            //Get ListViewItem
+            ListViewItem selectedItem = listViewRebateRecords.SelectedItems[0];
+            //Set NewValues
+            selectedItem.SubItems[0].Text = rebateInfo.Fname;
+            selectedItem.SubItems[1].Text = rebateInfo.Lname;
+            selectedItem.SubItems[2].Text = rebateInfo.PhoneNum;
+            selectedItem.Tag = rebateInfo;     
+        }
+
+        private void AddMode_Save(Domain.RebateInfo rebateInfo)
+        {
+            //Add ListViewItem
+            ListViewItem item = new ListViewItem(new[] { rebateInfo.Fname, rebateInfo.Lname, rebateInfo.PhoneNum });
+            item.Tag = rebateInfo;
+            listViewRebateRecords.Items.Add(item);
+        }
+
+        private ICollection<Domain.RebateInfo> RebateInfoListViewToList(ListView listView)
+        {
+            List<Domain.RebateInfo> rebateInfos = new List<Domain.RebateInfo>();
+
+            foreach(ListViewItem item in listView.Items)
+            {
+                Domain.RebateInfo tempRebateInfo = (Domain.RebateInfo)item.Tag;
+
+                rebateInfos.Add(tempRebateInfo);
+            }
+
+            return rebateInfos;
         }
 
         private void BtnAddMode_Click(object sender, EventArgs e)

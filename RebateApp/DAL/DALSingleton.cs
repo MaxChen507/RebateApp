@@ -92,37 +92,32 @@ namespace RebateApp.DAL
             return recordsText;
         }
 
-        public void SaveRebateInfo_ToFile(Domain.RebateInfo rebateInfo)
-        {
-            StringBuilder recordTxt = new StringBuilder();
-
-            recordTxt.Append(rebateInfo.Fname + "\t");
-            recordTxt.Append(rebateInfo.Minit + "\t");
-            recordTxt.Append(rebateInfo.Lname + "\t");
-            recordTxt.Append(rebateInfo.Addr1 + "\t");
-            recordTxt.Append(rebateInfo.Addr2 + "\t");
-            recordTxt.Append(rebateInfo.City + "\t");
-            recordTxt.Append(rebateInfo.State + "\t");
-            recordTxt.Append(rebateInfo.Zip + "\t");
-            recordTxt.Append(rebateInfo.Gender + "\t");
-            recordTxt.Append(rebateInfo.PhoneNum + "\t");
-            recordTxt.Append(rebateInfo.Email + "\t");
-            recordTxt.Append(rebateInfo.ProofPurchase + "\t");
-            recordTxt.Append(rebateInfo.DateRecieved + "\n");
-
-            WriteRebateInfo_ToFile(recordTxt.ToString());
-        }
-
-        private void WriteRebateInfo_ToFile(String recordsTxt)
+        public void SaveRebateInfo_ToFile(ICollection<Domain.RebateInfo> rebateInfos)
         {
             String currentDirectoryPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
 
             String dataFilePath = currentDirectoryPath + "\\bin\\CS6326Asg2.txt";
 
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(dataFilePath, true))
+            StringBuilder rebateRecordsTxt = new StringBuilder();
+
+            foreach(Domain.RebateInfo item in rebateInfos)
             {
-                file.WriteLine(recordsTxt);
+                rebateRecordsTxt.Append(item.Fname + "\t");
+                rebateRecordsTxt.Append(item.Minit + "\t");
+                rebateRecordsTxt.Append(item.Lname + "\t");
+                rebateRecordsTxt.Append(item.Addr1 + "\t");
+                rebateRecordsTxt.Append(item.Addr2 + "\t");
+                rebateRecordsTxt.Append(item.City + "\t");
+                rebateRecordsTxt.Append(item.State + "\t");
+                rebateRecordsTxt.Append(item.Zip + "\t");
+                rebateRecordsTxt.Append(item.Gender + "\t");
+                rebateRecordsTxt.Append(item.PhoneNum + "\t");
+                rebateRecordsTxt.Append(item.Email + "\t");
+                rebateRecordsTxt.Append(item.ProofPurchase + "\t");
+                rebateRecordsTxt.Append(item.DateRecieved + "\n");
             }
+
+            System.IO.File.WriteAllText(dataFilePath, rebateRecordsTxt.ToString());
         }
 
     }
