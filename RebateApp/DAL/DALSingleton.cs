@@ -31,21 +31,22 @@ namespace RebateApp.DAL
 
         public ICollection<Domain.RebateInfo> GetRebateInfo_FromFile()
         {
-            List<String> rebateRecords = ReadRebateRecords_FromFile().ToList();
+            List<String> rebateRecordsText = ReadRebateRecords_FromFile().ToList();
 
+            //List to hold rebateInfos
             List<Domain.RebateInfo> rebateInfos = new List<Domain.RebateInfo>();
-
-
-            if (!rebateRecords.Any())
+            
+            //Checks if file is null
+            if (!rebateRecordsText.Any())
             {
                 return null;
             }
             else
             {
-                foreach(String item in rebateRecords)
+                foreach(String item in rebateRecordsText)
                 {
+                    //Parse text to rebateInfos
                     String[] text = item.Split('\t');
-                    //TODO: if the field is empty, what to do?
                     Domain.RebateInfo rebateInfoTemp = new Domain.RebateInfo();
                     rebateInfoTemp.Fname = text[0];
                     rebateInfoTemp.Minit = text[1];
@@ -70,16 +71,18 @@ namespace RebateApp.DAL
 
         private ICollection<String> ReadRebateRecords_FromFile()
         {
+            //Sets the path and file name
             String currentDirectoryPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-
             String dataFilePath = currentDirectoryPath + "\\bin\\CS6326Asg2.txt";
 
             //First clear all whitespace
             var lines = File.ReadAllLines(dataFilePath).Where(arg => !string.IsNullOrWhiteSpace(arg));
             File.WriteAllLines(dataFilePath, lines);
 
+            //List variable that holds text from file
             List<String> recordsText = null;
 
+            //Reads text from file
             try
             {
                 recordsText = File.ReadAllLines(dataFilePath).ToList();
@@ -94,10 +97,11 @@ namespace RebateApp.DAL
 
         public void SaveRebateInfo_ToFile(ICollection<Domain.RebateInfo> rebateInfos)
         {
+            //Sets the path and file name
             String currentDirectoryPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-
             String dataFilePath = currentDirectoryPath + "\\bin\\CS6326Asg2.txt";
 
+            //String builder to hold new text to write over existing file
             StringBuilder rebateRecordsTxt = new StringBuilder();
 
             foreach(Domain.RebateInfo item in rebateInfos)

@@ -8,8 +8,10 @@ namespace RebateApp.BLL
 {
     class BLLSingleton
     {
+        // Instance Variable
         private static BLLSingleton instance;
 
+        // Holds the current mode for this session
         public String currentMode = Domain.CurrentMode.addMode;
 
         private BLLSingleton()
@@ -29,7 +31,7 @@ namespace RebateApp.BLL
             }
         }
 
-        public ICollection<Domain.RebateInfo> GetRebateInfo()
+        public ICollection<Domain.RebateInfo> GetRebateInfoList()
         {
             if (DAL.DALSingleton.Instance.GetRebateInfo_FromFile() == null || !DAL.DALSingleton.Instance.GetRebateInfo_FromFile().Any())
             {
@@ -45,16 +47,16 @@ namespace RebateApp.BLL
 
         public Boolean CheckUnique(String fName, String lName, String phoneNum)
         {
-
-            if(GetRebateInfo() == null || !GetRebateInfo().Any())
+            if(GetRebateInfoList() == null || !GetRebateInfoList().Any())
             {
                 return true;
             }
 
-            List<Domain.RebateInfo> rebateInfos = GetRebateInfo().ToList();
+            List<Domain.RebateInfo> rebateInfos = GetRebateInfoList().ToList();
 
             Boolean uniqueFlag = true;
 
+            //Checks if theres any match in data
             if (rebateInfos.Any(record => record.Fname == fName && record.Lname == lName && record.PhoneNum == phoneNum))
             {
                 uniqueFlag = false;
