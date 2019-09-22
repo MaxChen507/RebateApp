@@ -697,7 +697,6 @@ namespace RebateApp
             mainform_NumPressedBackSpace = 0;
         }
 
-
         private void RefreshForm()
         {
             //Clears all data in fields
@@ -720,7 +719,7 @@ namespace RebateApp
 
         }
 
-        private void BtnClear_MouseDown(object sender, MouseEventArgs e)
+        private void BtnClear_Click(object sender, EventArgs e)
         {
             //Refreshes the form to default
             RefreshForm();
@@ -750,8 +749,9 @@ namespace RebateApp
         }
 
 
+
         #endregion
 
-        
+
     }
 }

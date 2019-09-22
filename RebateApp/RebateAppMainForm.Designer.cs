@@ -375,7 +375,7 @@
             this.btnClear.TabIndex = 27;
             this.btnClear.Text = "Clear All Fields";
             this.btnClear.UseVisualStyleBackColor = true;
-            this.btnClear.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BtnClear_MouseDown);
+            this.btnClear.Click += new System.EventHandler(this.BtnClear_Click);
             // 
             // RebateAppMainForm
             // 
