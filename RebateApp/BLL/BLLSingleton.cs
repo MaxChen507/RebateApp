@@ -31,13 +31,26 @@ namespace RebateApp.BLL
 
         public ICollection<Domain.RebateInfo> GetRebateInfo()
         {
-            List<Domain.RebateInfo> rebateInfos = DAL.DALSingleton.Instance.GetRebateInfo_FromFile().ToList();
+            if (DAL.DALSingleton.Instance.GetRebateInfo_FromFile() == null || !DAL.DALSingleton.Instance.GetRebateInfo_FromFile().Any())
+            {
+                return null;
+            }
+            else
+            {
+                List<Domain.RebateInfo> rebateInfos = DAL.DALSingleton.Instance.GetRebateInfo_FromFile().ToList();
+                return rebateInfos;
+            }
 
-            return rebateInfos;
         }
 
         public Boolean CheckUnique(String fName, String lName, String phoneNum)
         {
+
+            if(GetRebateInfo() == null || !GetRebateInfo().Any())
+            {
+                return true;
+            }
+
             List<Domain.RebateInfo> rebateInfos = GetRebateInfo().ToList();
 
             Boolean uniqueFlag = true;
@@ -48,6 +61,11 @@ namespace RebateApp.BLL
             }
 
             return uniqueFlag;
+        }
+
+        public void AddRebateInfo(Domain.RebateInfo rebateInfo)
+        {
+            DAL.DALSingleton.Instance.SaveRebateInfo_ToFile(rebateInfo);
         }
 
     }

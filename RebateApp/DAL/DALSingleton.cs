@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RebateApp.Domain;
 
 namespace RebateApp.DAL
 {
@@ -73,6 +74,10 @@ namespace RebateApp.DAL
 
             String dataFilePath = currentDirectoryPath + "\\bin\\CS6326Asg2.txt";
 
+            //First clear all whitespace
+            var lines = File.ReadAllLines(dataFilePath).Where(arg => !string.IsNullOrWhiteSpace(arg));
+            File.WriteAllLines(dataFilePath, lines);
+
             List<String> recordsText = null;
 
             try
@@ -85,6 +90,39 @@ namespace RebateApp.DAL
             }
 
             return recordsText;
+        }
+
+        public void SaveRebateInfo_ToFile(Domain.RebateInfo rebateInfo)
+        {
+            StringBuilder recordTxt = new StringBuilder();
+
+            recordTxt.Append(rebateInfo.Fname + "\t");
+            recordTxt.Append(rebateInfo.Minit + "\t");
+            recordTxt.Append(rebateInfo.Lname + "\t");
+            recordTxt.Append(rebateInfo.Addr1 + "\t");
+            recordTxt.Append(rebateInfo.Addr2 + "\t");
+            recordTxt.Append(rebateInfo.City + "\t");
+            recordTxt.Append(rebateInfo.State + "\t");
+            recordTxt.Append(rebateInfo.Zip + "\t");
+            recordTxt.Append(rebateInfo.Gender + "\t");
+            recordTxt.Append(rebateInfo.PhoneNum + "\t");
+            recordTxt.Append(rebateInfo.Email + "\t");
+            recordTxt.Append(rebateInfo.ProofPurchase + "\t");
+            recordTxt.Append(rebateInfo.DateRecieved + "\n");
+
+            WriteRebateInfo_ToFile(recordTxt.ToString());
+        }
+
+        private void WriteRebateInfo_ToFile(String recordsTxt)
+        {
+            String currentDirectoryPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+
+            String dataFilePath = currentDirectoryPath + "\\bin\\CS6326Asg2.txt";
+
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(dataFilePath, true))
+            {
+                file.WriteLine(recordsTxt);
+            }
         }
 
     }
