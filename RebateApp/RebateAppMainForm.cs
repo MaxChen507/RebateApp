@@ -89,7 +89,7 @@ namespace RebateApp
             dateTimePickerDateReceived.Value = DateTime.ParseExact(rebateInfo.DateRecieved, "M/dd/yyyy", CultureInfo.InvariantCulture);
 
             //After populating it will check for valid (should be valid)
-            FieldsValidation();
+            CheckFields_ShowErrorColors();
         }
         #endregion
 
@@ -527,6 +527,16 @@ namespace RebateApp
                 cboProofPurchase.BackColor = Color.PaleVioletRed;
             }
 
+            //Checks for total fields validation and enables or disables save button
+            if (FieldsValidation())
+            {
+                btnSave.Enabled = true;
+            }
+            else
+            {
+                btnSave.Enabled = false;
+            }
+
             UpdateToolStripStatus();
         }
 
@@ -543,8 +553,6 @@ namespace RebateApp
             {
                 correctFlag = false;
             }
-
-            CheckFields_ShowErrorColors();
 
             return correctFlag;
         }
@@ -610,7 +618,7 @@ namespace RebateApp
             toolStripStatusLabelCurrentMode.Text = "Current Mode: " + mode;
 
             //After changing modes it will check all the fields agian for the new mode
-            FieldsValidation();
+            CheckFields_ShowErrorColors();
         }
 
         private void BtnAddMode_Click(object sender, EventArgs e)
