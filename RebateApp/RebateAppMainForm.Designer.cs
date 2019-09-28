@@ -61,6 +61,7 @@
             this.listViewRebateRecords = new System.Windows.Forms.ListView();
             this.btnAddMode = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.statusStripRebateApp.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -325,7 +326,7 @@
             this.statusStripRebateApp.Location = new System.Drawing.Point(0, 428);
             this.statusStripRebateApp.Name = "statusStripRebateApp";
             this.statusStripRebateApp.Size = new System.Drawing.Size(832, 22);
-            this.statusStripRebateApp.TabIndex = 30;
+            this.statusStripRebateApp.TabIndex = 31;
             this.statusStripRebateApp.Text = "statusStrip";
             // 
             // toolStripStatusLabelCurrentMode
@@ -351,7 +352,7 @@
             this.listViewRebateRecords.MultiSelect = false;
             this.listViewRebateRecords.Name = "listViewRebateRecords";
             this.listViewRebateRecords.Size = new System.Drawing.Size(329, 413);
-            this.listViewRebateRecords.TabIndex = 29;
+            this.listViewRebateRecords.TabIndex = 30;
             this.listViewRebateRecords.UseCompatibleStateImageBehavior = false;
             this.listViewRebateRecords.Click += new System.EventHandler(this.ListViewRebateRecords_Click);
             this.listViewRebateRecords.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListViewRebateRecords_KeyDown);
@@ -363,7 +364,7 @@
             this.btnAddMode.Location = new System.Drawing.Point(410, 402);
             this.btnAddMode.Name = "btnAddMode";
             this.btnAddMode.Size = new System.Drawing.Size(75, 23);
-            this.btnAddMode.TabIndex = 28;
+            this.btnAddMode.TabIndex = 29;
             this.btnAddMode.Text = "Add Mode";
             this.btnAddMode.UseVisualStyleBackColor = true;
             this.btnAddMode.Click += new System.EventHandler(this.BtnAddMode_Click);
@@ -373,16 +374,28 @@
             this.btnClear.Location = new System.Drawing.Point(309, 402);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(95, 23);
-            this.btnClear.TabIndex = 27;
+            this.btnClear.TabIndex = 28;
             this.btnClear.Text = "Clear All Fields";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.BtnClear_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Enabled = false;
+            this.btnDelete.Location = new System.Drawing.Point(228, 401);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.TabIndex = 27;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
             // 
             // RebateAppMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(832, 450);
+            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnAddMode);
             this.Controls.Add(this.listViewRebateRecords);
@@ -461,6 +474,7 @@
         private System.Windows.Forms.Button btnAddMode;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelStatusMsg;
         private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.Button btnDelete;
     }
 }
 

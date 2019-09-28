@@ -64,6 +64,9 @@ namespace RebateApp
             //First changes the mode to EditMode
             ChangeCurrentMode(Domain.CurrentMode.editMode);
 
+            //Enables Delte Button
+            btnDelete.Enabled = true;
+
             //Does not do the edit event if there are no selected items
             if (listViewRebateRecords.SelectedItems.Count == 0)
             {
@@ -107,6 +110,11 @@ namespace RebateApp
 
 
         #region Delete Functions Code
+        private void BtnDelete_Click(object sender, EventArgs e)
+        {
+            ListViewRebateRecords_DeleteEvent();
+        }
+
         private void ListViewRebateRecords_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
@@ -117,15 +125,15 @@ namespace RebateApp
 
         private void ListViewRebateRecords_DeleteEvent()
         {
+            //Does not do the follwing if there are no selected items
+            if (listViewRebateRecords.SelectedItems.Count == 0)
+            {
+                return;
+            }
+
             DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete the record permanently?", "Delete Record Confirmation", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                //Does not do the follwing if there are no selected items
-                if (listViewRebateRecords.SelectedItems.Count == 0)
-                {
-                    return;
-                }
-
                 //Removes the selcted ListViewItem
                 listViewRebateRecords.SelectedItems[0].Remove();
 
@@ -624,6 +632,9 @@ namespace RebateApp
         private void BtnAddMode_Click(object sender, EventArgs e)
         {
             ChangeCurrentMode(Domain.CurrentMode.addMode);
+
+            //Disable Delete Button
+            btnDelete.Enabled = false;
         }
 
 
@@ -716,6 +727,9 @@ namespace RebateApp
             //Default Mode is AddMode
             ChangeCurrentMode(Domain.CurrentMode.addMode);
 
+            //Disable Delete Button
+            btnDelete.Enabled = false;
+
             //Resets hidden variables to defaults
             ResetHiddenVariables();
 
@@ -758,8 +772,9 @@ namespace RebateApp
 
 
 
+
         #endregion
 
-
+        
     }
 }
