@@ -102,7 +102,7 @@ namespace RebateApp.DAL
         {
             //Sets the path and file name
             String currentDirectoryPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-            String dataFilePath = currentDirectoryPath + "\\bin\\CS6326Asg2.txt";
+            String dataFilePath = currentDirectoryPath + @"\bin\CS6326Asg2.txt";
 
             //String builder to hold new text to write over existing file
             StringBuilder rebateRecordsTxt = new StringBuilder();
